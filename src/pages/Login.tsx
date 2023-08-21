@@ -1,29 +1,23 @@
 import React, { useState } from "react";
-import { login } from "../services/api";
+import DataService from "../services/api";
 import { useNavigate } from "react-router-dom";
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("satmis10000");
   const [password, setPassword] = useState("Asdf1234#");
   const [error, setError] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = async () => {
-    localStorage.setItem("isLoggedIn", true.toString());
-    navigate("/");
-    setLoggedIn(true);
-    try {
-      const response = await login(username, password);
-      if (response.error) {
-        setError("Invalid credentials. Please try again.");
-      } else {
-        setLoggedIn(true);
-      }
-    } catch (error) {
-      setError("An error occurred. Please try again later.");
-    }
+    DataService.login({ uid: username, password })
+      .then((res) => {
+       const {token} = res.data;
+       localStorage.setItem("token", token);
+       navigate("/");
+      })
+      .catch((e) => {
+        setError(e.message)
+      });
   };
-
   return (
     <div className="login-container">
       <>

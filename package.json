@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.0",
+    "@chakra-ui/react": "^2.8.0",
     "@faker-js/faker": "^8.0.2",
     "@react-pdf/renderer": "^3.1.12",
     "@testing-library/jest-dom": "^5.17.0",
