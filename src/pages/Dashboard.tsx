@@ -36,7 +36,7 @@ const DashboardPage: React.FC = () => {
     };
 
     generateChartImage();
-  }, []);
+  });
 
   return (
     <div className="main-container">

@@ -31,7 +31,7 @@ export const Navbar = () => {
                       fileName="chart.pdf"
                     >
                       {({ blob, url, loading, error }) =>
-                        loading ? "Loading document..." : "Download PDF"
+                         "Download PDF"
                       }
                     </PDFDownloadLink>
                   )}
