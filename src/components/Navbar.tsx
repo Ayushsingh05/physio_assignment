@@ -1,30 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { logout } from "../services/api";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import html2canvas from "html2canvas";
 import { PDFChart } from "./PDFChart";
+import { appContext } from "../context/AppContext";
 export const Navbar = () => {
   const [click, setClick] = useState(false);
   const handleClick = () => setClick(!click);
   const handleLogout = () => {
     logout();
   };
-  const [chartImageDataURL, setChartImageDataURL] = useState("");
-
-  useEffect(() => {
-    const generateChartImage = async () => {
-      const chartContainer = document.getElementById("chart-container");
-      if (chartContainer) {
-        const chartImage = await html2canvas(chartContainer);
-        const chartImageDataURL = chartImage.toDataURL("image/png");
-        setChartImageDataURL(chartImageDataURL);
-      }
-    };
-
-    generateChartImage();
-  }, []);
-
+  const { chartImage }: any = useContext(appContext);
   return (
     <>
       <nav className="b">
@@ -38,12 +24,10 @@ export const Navbar = () => {
             <li>
               <div className="nav-links nav-chart" onClick={handleClick}>
                 <div>
-                  {chartImageDataURL && (
+                  {chartImage && (
                     <PDFDownloadLink
                       className="nav-links "
-                      document={
-                        <PDFChart chartImageDataURL={chartImageDataURL} />
-                      }
+                      document={<PDFChart chartImageDataURL={chartImage} />}
                       fileName="chart.pdf"
                     >
                       {({ blob, url, loading, error }) =>
