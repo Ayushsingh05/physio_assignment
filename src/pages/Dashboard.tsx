@@ -32,7 +32,6 @@ const DashboardPage: React.FC = () => {
         const chartImage = await html2canvas(chartContainer);
         const chartImageDataURL = chartImage.toDataURL("image/png");
         setChartImage(chartImageDataURL);
-        console.log("Generated chart image:", chartImageDataURL);
       }
     };
 
